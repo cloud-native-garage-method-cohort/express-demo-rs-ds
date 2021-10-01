@@ -22,12 +22,24 @@ spec:
       workspaces:
         - name: output
           workspace: pipeline-shared-data
+    - name: tests
+      params:
+        - name: ARGS
+          value:
+            - install-ci-test
+      runAfter:
+        - clone
+      taskRef:
+        name: npm
+      workspaces:
+        - name: source
+          workspace: pipeline-shared-data
     - name: create-image
       params:
         - name: IMAGE
           value: "$(params.image-repo):$(tasks.clone.results.commit)"
       runAfter:
-        - clone
+        - tests
       taskRef:
         name: buildah
         kind: ClusterTask
