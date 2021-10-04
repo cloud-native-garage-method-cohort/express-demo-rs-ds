@@ -55,15 +55,15 @@ spec:
         generateName: express-sample-app-pipeline-
       spec:
         pipelineRef:
-          name: nodejs
+          name: express-demo
         serviceAccountName: build-bot
         params:
           - name: app-name
-            value: express-sample-app
+            value: express-demo-rs
           - name: source-repo
-            value: https://github.com/<your-account>/express-sample-app
+            value: https://github.com/cloud-native-garage-method-cohort/express-demo-rs-ds
           - name: image-repo
-            value: quay.io/<your-account>/express-sample-app
+            value: quay.io/remiserra/express-demo-rs-ds
         workspaces:
           - name: pipeline-shared-data
             volumeClaimTemplate:
