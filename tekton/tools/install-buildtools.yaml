@@ -12,4 +12,4 @@ spec:
     - name: deploy
       image: quay.io/upslopeio/kubectl:latest
       script: |
-        kubectl apply -n $(params.app-namespace) -f https://raw.githubusercontent.com/tektoncd/catalog/main/task/npm/0.1/npm.yaml
+        kubectl apply -n $(params.app-namespace) -f $(params.npm-url)
