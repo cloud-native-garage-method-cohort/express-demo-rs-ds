@@ -48,6 +48,11 @@ kind: TriggerTemplate
 metadata:
   name: vcs-trigger
 spec:
+  params:
+    - name: source-repo
+      description: Source code repository
+    - name: sha
+      description: Precise SHA of the commit to build
   resourcetemplates:
     - apiVersion: tekton.dev/v1beta1
       kind: PipelineRun
@@ -60,8 +65,12 @@ spec:
         params:
           - name: app-name
             value: express-demo-rs
+          #- name: source-repo
+          #  value: https://github.com/cloud-native-garage-method-cohort/express-demo-rs-ds
           - name: source-repo
-            value: https://github.com/cloud-native-garage-method-cohort/express-demo-rs-ds
+            value: $(tt.params.source-repo) # use value from trigger event -- WARNING SECURITY ?
+          - name: sha # introduce new param
+            value: $(tt.params.sha) # use value from trigger event
           - name: image-repo
             value: quay.io/remiserra/express-demo-rs-ds
         workspaces:
@@ -78,6 +87,12 @@ apiVersion: triggers.tekton.dev/v1alpha1
 kind: TriggerBinding
 metadata:
   name: vcs-trigger
+spec:
+  params:
+    - name: source-repo
+      value: $(body.repository.url)
+    - name: sha
+      value: $(body.head_commit.id)
 ---
 apiVersion: triggers.tekton.dev/v1alpha1
 kind: EventListener

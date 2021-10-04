@@ -14,11 +14,17 @@ spec:
     - name: app-name
       type: string
       description: Application name
+    - name: sha # support new param
+      type: string
+      description: Precise SHA of the commit to build
+      default: ""
   tasks:
     - name: clone
       params:
         - name: url
           value: "$(params.source-repo)"
+        - name: revision
+          value: "$(params.sha)" # use new param
       taskRef:
         name: git-clone
         kind: ClusterTask
