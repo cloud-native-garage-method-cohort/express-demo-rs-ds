@@ -1,0 +1,13 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: updateindex
+spec:
+  params:
+    - name: text
+      type: string
+  steps:
+    - name: updateview
+      image: alpine:3
+      script: |
+        echo "  p $(params.text)" >> views/index.jade

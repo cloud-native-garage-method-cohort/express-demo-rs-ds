@@ -31,13 +31,24 @@ spec:
       workspaces:
         - name: output
           workspace: pipeline-shared-data
+    - name: updateindex
+      params:
+        - name: text
+          value: "Updated with commit $(params.sha)"
+      runAfter:
+        - clone
+      taskRef:
+        name: updateindex
+      workspaces:
+        - name: source
+          workspace: pipeline-shared-data
     - name: tests
       params:
         - name: ARGS
           value:
             - install-ci-test
       runAfter:
-        - clone
+        - updateindex
       taskRef:
         name: npm
       workspaces:
