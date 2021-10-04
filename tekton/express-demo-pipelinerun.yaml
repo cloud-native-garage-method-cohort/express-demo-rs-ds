@@ -5,6 +5,8 @@ metadata:
 spec:
   serviceAccountName: build-bot
   params:
+    - name: app-name
+      value: express-demo-rs
     - name: source-repo
       value: https://github.com/cloud-native-garage-method-cohort/express-demo-rs-ds
     - name: image-repo
