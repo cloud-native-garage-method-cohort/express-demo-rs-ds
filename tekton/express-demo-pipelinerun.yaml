@@ -22,3 +22,11 @@ spec:
               storage: 1Gi
           accessModes:
             - ReadWriteOnce
+    - name: production-repository
+      volumeClaimTemplate:
+        spec:
+          accessModes:
+            - ReadWriteOnce
+          resources:
+            requests:
+              storage: 1Gi
